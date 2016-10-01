@@ -1,3 +1,4 @@
+#pragma config(Motor,  port4,           funnelServo,   tmotorServoStandard, openLoop)
 #pragma config(Motor,  port5,           leftMotor,     tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port6,           rightMotor,    tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           armMotor,      tmotorVex393_MC29, openLoop)
@@ -58,20 +59,33 @@ void armMotorControl(){
 
 //Declare and Initialize Ch2 as Vex Controller channel 2, which
 //We can change joystick controls depending on what the driver wants
-int Ch2 = vexRT[Ch2];
-	if(Ch2 !=0){
+int c2 = vexRT[Ch2];
+	if(c2<-10||c2>10){
 		motor[port7] = Ch2;
+	}else{
+		motor[c2] = 0;
 	}
 }
 
 void clawServoControl(){
 	int btn2 = vexRT(Btn6U);
-	int btn3 = vexRT(Btn5U);
+	int btn3 = vexRT(Btn6D);
 	if(btn2 == 1){
 		motor[port9] = 131;
 	}
 	if(btn3 == 1){
 		motor[port9] = 0;
+	}
+}
+
+void funnelServoControl(){
+	int btn4 = vexRT(Btn5U);
+	int btn5 = vexRT(Btn5D);
+	if(btn4 == 1){
+		motor[port4] = 131;
+	}
+	if(btn5 == 1){
+		motor[port4] = -55;
 	}
 }
 
@@ -83,5 +97,6 @@ task main{
 	digitalMotorControl();
 	armMotorControl();
 	clawServoControl();
+	funnelServoControl();
 	} //loop end
 }
