@@ -57,7 +57,7 @@ void arcadeDrive(){
 		motor[rightMotor] = (joy_y + joy_x)/2;
 	}
 	// Turning in place: (abs(X) is above the threshold, abs(Y) is below the threshold)
-	else if((abs(joy_x) > threshold) && (abs(joy_y) < threshold))
+	else if((abs(joy_x) > threshold) && (abs(joy_y) < 40))
 	{
 		motor[leftMotor]  = joy_x;
 		motor[rightMotor] = (-1 * joy_x);
