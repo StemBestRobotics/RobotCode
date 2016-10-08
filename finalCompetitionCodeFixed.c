@@ -73,11 +73,11 @@ void doorServoControl(){
 	//Declare and initialize btn1 as a button on the vex controller, which may be changed based on driver requests.
 	int btn1 = vexRT(Btn5U);
 	int btn2 = vexRT(Btn5D);
-	if(btn1 == 1){
+	if(Btn5U == 1){
 		//turn the servo to its maximum range.
 		motor[doorServo] = 175;
 	}
-	if(btn2 == 1){
+	if(Btn5D == 1){
 		//turn the servo to its minimum range.
 		motor[doorServo] = -175;
 	}
