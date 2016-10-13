@@ -14,6 +14,7 @@
  Quin Nordmark
  Mreedul Gupta
 
+
  Controls final competition robot, which has a corn gathering arm, a seed gathering and distributing funnel with a gate, and a corn holder that has a gate to let the corn out.
  */
  //Function that controls the corn gathering arm
