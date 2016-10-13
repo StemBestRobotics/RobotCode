@@ -45,7 +45,7 @@
 
  	// Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE and above 40)
  	//The y value being above 40 is present to mitigate a driver concern.
- 	if((joy_y > 40) && ((joy_x) < threshold))
+ 	if((joy_y > 40) && (abs(joy_x) < threshold))
  	{
  		motor[leftMotor]  = (joy_y);
  		motor[rightMotor] = (joy_y);
