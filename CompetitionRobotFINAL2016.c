@@ -47,15 +47,15 @@
  	//The y value being above 40 is present to mitigate a driver concern.
  	if(((abs(joy_x) > threshold) || (abs(joy_y) > threshold)) && (joy_y > 40))
  	{
- 		motor[leftMotor]  = (joy_y + joy_x)/2;
- 		motor[rightMotor] = (joy_y - joy_x)/2;
+ 		motor[leftMotor]  = (joy_y - joy_x)/2;
+ 		motor[rightMotor] = (joy_y + joy_x)/2;
  	}
  	// Backwards and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is NEGATIVE and below -40)
  	//The ya value being below -40 is present to mitigate a driver concern.
  	else if(((abs(joy_x) > threshold) || (abs(joy_y) > threshold)) && (joy_y < -40))
  	{
- 		motor[leftMotor]  = (joy_y - joy_x)/2;
-  		motor[rightMotor] = (joy_y + joy_x)/2;
+ 		motor[leftMotor]  = (joy_y + joy_x)/2;
+  		motor[rightMotor] = (joy_y - joy_x)/2;
   	}
   	// Turning in place: (abs(X) is above the threshold, abs(Y) is below the threshold)
  	else if((abs(joy_x) > threshold) && (abs(joy_y) < 40))
