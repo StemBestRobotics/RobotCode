@@ -38,7 +38,7 @@
  void arcadeDrive(){
  	int joy_x;            // will hold the X value of the analog stick (choices below)
  	int joy_y;            // will hold the Y value of the analog stick (choices below)
- 	int threshold = 20;		//Threshhold in which the joystick will not move, to compensate for an imperfect joystick.
+ 	int threshold = 30;		//Threshhold in which the joystick will not move, to compensate for an imperfect joystick.
 
  	joy_x = vexRT[Ch4]*-1;   // This is the RIGHT analog stick.  For LEFT, change 'Ch1' to 'Ch4'.
  	joy_y = vexRT[Ch3]*-1;   // This is the RIGHT analog stick.  For LEFT, change 'Ch2' to 'Ch3'.
