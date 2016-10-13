@@ -25,7 +25,7 @@ void arcadeDrive(){
 
 	int joy_x;            // will hold the X value of the analog stick (choices below)
 	int joy_y;            // will hold the Y value of the analog stick (choices below)
-	int threshold = 10;
+	int threshold = 40;
 
 	joy_x = vexRT[Ch3];   // This is the RIGHT analog stick.  For LEFT, change 'Ch1' to 'Ch4'.
 	joy_y = vexRT[Ch4];   // This is the RIGHT analog stick.  For LEFT, change 'Ch2' to 'Ch3'.
@@ -64,7 +64,7 @@ void funnelServoControl(){
 		motor[funnelServo] = 127;
 	}
 	if(btn5 == 1){
-		motor[funnelServo] = 30;
+		motor[funnelServo] = 40;
 	}
 }
 
@@ -75,7 +75,7 @@ void doorServoControl(){
 		motor[doorServo] = 360;
 	}
 	if(btn2 == 1){
-		motor[doorServo] = -50;
+		motor[doorServo] = -60;
 	}
 }
 
