@@ -37,21 +37,26 @@
  	}
  }
 
- //Function that controls Arcade Drive
- //Arcade drive is driving the robot with a single joystick.
- void arcadeDrive(){
+ //Function that controls driving
+ void drive(){
   if(pressed==true){
+  	//tank control
+  	//variables that hold teh joystick values.
   	int joy_y1;
   	int joy_y2;
+  	//x value used to ensure there are no conflicts with the arm control.
   	int joy_x2;
   	joy_y1=vexRT[Ch3]*-1;
   	joy_y2=vexRT[Ch2]*-1;
   	joy_x2=vexRT[Ch1]*-1;
+  	//threshold used to compensate for potentially faulty joysticks.
   	int threshold = 30;
+  	//ensure no conflicts with arm control.
   	if(joy_x2>80||joy_x2<-80){
   		motor[leftMotor]=0;
   		motor[rightMotor]=0;
   	}
+  	//tank drive control
   	else if((abs(joy_y1)>threshold)){
   		motor[leftMotor]=joy_y1;
   	}
@@ -140,7 +145,7 @@
  task main{
  	//Loop continuously in order to perform teleoperated tasks.
  	while(1==1){
- 		arcadeDrive();
+ 		drive();
  		armMotorControl();
  		doorServoControl();
  		funnelServoControl();
