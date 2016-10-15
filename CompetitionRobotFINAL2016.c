@@ -48,11 +48,11 @@
   int btn1 = vexRT(Btn7L);
   int btn2 = vexRT(Btn7R);
   if(btn1==1){
-  	pressed=true;
+  	switched=true;
   }else if(btn2==1){
-  	pressed=false;
+  	switched=false;
   }
-  if(pressed==true){
+  if(switched==true){
   	//tank control
   	//variables that hold the joystick values.
   	int joy_y1;
