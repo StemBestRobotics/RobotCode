@@ -19,17 +19,17 @@
  in addition to being capable of driving in arcade control and in tank control, based on user input.
  */
  //Declare and initiallize global variables.
- bool switch = false;
+ bool switched = false;
  //Function that controls the corn gathering arm
  void armMotorControl(){
  	//Declare and Initialize c2 as Vex Controller channel 2
  	//We can change joystick controls depending on what the drivers want
  	//The arm uses two motors in order to have more torque, which was one potential design. However, the final build does not use the additional motor as it was not necesarry.
  	int c1;
- 	if(pressed==false){
+ 	if(switched==false){
  		c1 = vexRT[Ch2];
 	}
-	if(pressed==true){
+	if(switched==true){
 		c1 = vexRT[Ch1];
 	}
  	//range in which the program will read from the joystick. Used to combat imperfect joysticks, in addition to being well outside the range of tank drive toavoid accidental
