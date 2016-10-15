@@ -39,6 +39,13 @@
 
  //Function that controls driving
  void drive(){
+  int btn1 = vexRT(Btn7L);
+  int btn2 = vexRT(Btn7R);
+  if(btn1==1){
+  	pressed=true;
+  }else if(btn2==1){
+  	pressed=false;
+  }
   if(pressed==true){
   	//tank control
   	//variables that hold teh joystick values.
