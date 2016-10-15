@@ -19,7 +19,7 @@
  in addition to being capable of driving in arcade control and in tank control, based on user input.
  */
  //Declare and initiallize global variables.
- bool pressed = false;
+ bool switch = false;
  //Function that controls the corn gathering arm
  void armMotorControl(){
  	//Declare and Initialize c2 as Vex Controller channel 2
