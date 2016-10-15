@@ -48,7 +48,7 @@
   }
   if(pressed==true){
   	//tank control
-  	//variables that hold teh joystick values.
+  	//variables that hold the joystick values.
   	int joy_y1;
   	int joy_y2;
   	//x value used to ensure there are no conflicts with the arm control.
