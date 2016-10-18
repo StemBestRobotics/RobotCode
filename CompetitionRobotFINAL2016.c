@@ -169,9 +169,9 @@
 //Function that controls the water valve prongs
  void funnelServoControl(){
  	//Declare and initialize btn8 as a button on the vex controller. This may be changed based on driver requests.
- 	int btn8 = vexRT(Btn7R);
+ 	int btn8 = vexRT(Btn7U);
  	//Declare and initialize btn9 as a button on the vex controller. This may be changed based on driver requests.
- 	int btn9 = vexRT(Btn7L);
+ 	int btn9 = vexRT(Btn7D);
  	if(btn8 == 1){
  		//It will turn the funnel servo to 90 degrees.
  		motor[waterServo] = 87.5;
