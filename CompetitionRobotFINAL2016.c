@@ -25,13 +25,13 @@
  //This function controls the speed of the wheels, so the drivers will be able to change the speed of the robot based on te situation
  void gearShift(){
 	 //Declare and initialize variables
-	 int buttonUp = vexRT(btn8U);
-	 int buttonDown = vexRT(btn8D);
+	 int buttonUp = vexRT(Btn8U);
+	 int buttonDown = vexRT(Btn8D);
 	 //Says if buttonUp is pressed, motor controls are full speed
 	 if (buttonUp==1){
 		speedControl=1;
-	
-	 } 
+
+	 }
 	 //Says if buttonDown is pressed, motor controls are half speed
 	 if (buttonDown==1){
 	 	speedControl=0.5;
@@ -60,7 +60,7 @@
  	}
  }
 //FUNCTION that controls switches between arcade drive and tank drive
-void controlSwitch(){	
+void controlSwitch(){
 	 //Declaring and initializing variables
   	int btn1 = vexRT(Btn7L);
   	int btn2 = vexRT(Btn7R);
@@ -163,15 +163,15 @@ otherwise the motor does not move
  	int btn1 = vexRT(Btn5U);
  	int btn2 = vexRT(Btn5D);
  	if(btn1 == 1){
- 		//This opens the corn door 
+ 		//This opens the corn door
  		motor[doorMotor] = 175;
  	}
-	
+
  	else if(btn2 == 1){
  		//This part will turn the motor to close the door
  		motor[doorMotor] = -175;
  	}
-	 
+
 	 else{
 		//This part says that if the buttons are not pushed, the motor does not turn
 		 motor[doorMotor] = 0;
@@ -200,7 +200,7 @@ otherwise the motor does not move
  	while(1==1){
  		drive();
  		armMotorControl();
- 		doorServoControl();
+ 		doorMotorControl();
  		funnelServoControl();
 		controlSwitch();
 		gearShift();
