@@ -1,5 +1,5 @@
- #pragma config(Motor,  port3,           leftMotor,     tmotorVex393_MC29, openLoop, reversed)
- #pragma config(Motor,  port2,           rightMotor,    tmotorVex393_MC29, openLoop)
+ #pragma config(Motor,  port3,           leftMotor,     tmotorVex393_MC29, openLoop)
+ #pragma config(Motor,  port2,           rightMotor,    tmotorVex393_MC29, openLoop, reversed)
  #pragma config(Motor,  port4,           armMotor,      tmotorVex393_MC29, openLoop)
  #pragma config(Motor,  port5,           armMotor2,  tmotorVex393_MC29, openLoop)
  #pragma config(Motor,  port6,           doorServo,     tmotorServoStandard, openLoop)
@@ -24,9 +24,18 @@
  int speedControl = 1;
  //This function controls the speed of the wheels, so the drivers will be able to change the speed of the robot based on te situation
  void gearShift(){
+	 //Declare and initialize variables
 	 int buttonUp = vexRT(btn8U);
 	 int buttonDown = vexRT(btn8D);
-	 
+	 //Says if buttonUp is pressed, motor controls are full speed
+	 if (buttonUp==1){
+		speedControl=1;
+	
+	 } 
+	 //Says if buttonDown is pressed, motor controls are half speed
+	 if (buttonDown==1){
+	 	speedControl=0.5;
+	 }
  }
  //Function that controls the corn gathering arm
  void armMotorControl(){
@@ -50,19 +59,21 @@
  		motor[armMotor]=0;
  	}
  }
+//FUNCTION that controls switches between arcade drive and tank drive
+void controlSwitch(){	
+	 //Declaring and initializing variables
+  	int btn1 = vexRT(Btn7L);
+  	int btn2 = vexRT(Btn7R);
+  	//Says if btn1 is pressed it goes to tank control, otherwise it goes to arcade drive
+  	if(btn1==1){
+  		switched=true;
+  	}else if(btn2==1){
+  		switched=false;
+  }
+}
 
  //Function that controls driving
-
  void drive(){
-   //Declaring and initializing variables
-  int btn1 = vexRT(Btn7L);
-  int btn2 = vexRT(Btn7R);
-  //Says if btn1 is pressed it goes to tank control, otherwise it goes to arcade drive
-  if(btn1==1){
-  	switched=true;
-  }else if(btn2==1){
-  	switched=false;
-  }
   if(switched==true){
   	//tank control
   	//variables that hold the joystick values.
@@ -70,8 +81,8 @@
   	int joy_y2;
   	//x value used to ensure there are no conflicts with the arm control.
   	int joy_x2;
-  	joy_y1=vexRT[Ch3]*-1;
-  	joy_y2=vexRT[Ch2]*-1;
+  	joy_y1=vexRT[Ch3]*speedControl;
+  	joy_y2=vexRT[Ch2]*speedControl;
   	joy_x2=vexRT[Ch1]*-1;
   	//threshold used to compensate for potentially faulty joysticks.
   	int threshold = 30;
@@ -99,8 +110,8 @@
 	 	int joy_y;            // will hold the Y value of the analog stick (choices below)
 	 	int threshold = 30;		//Threshhold in which the joystick will not move, to compensate for an imperfect joystick.
 
-	 	joy_x = vexRT[Ch4]*-1;   //use joy_x as vex channel 4
-	 	joy_y = vexRT[Ch3]*-1;   //use joy_y as vex channel 3
+	 	joy_x = vexRT[Ch4]*speedControl;   //use joy_x as vex channel 4
+	 	joy_y = vexRT[Ch3]*speedControl;   //use joy_y as vex channel 3
 	 	//The robot will move forward.
 	 	if((joy_y > 40) && (abs(joy_x) < threshold))
 	 	{
@@ -181,5 +192,7 @@
  		armMotorControl();
  		doorServoControl();
  		funnelServoControl();
+		controlSwitch();
+		gearShift();
  	}
  }
