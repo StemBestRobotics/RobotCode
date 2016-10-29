@@ -193,7 +193,6 @@ otherwise the motor does not move
  		motor[funnelServo] = -175;
  	}
  }
-
  //Main body of program
  task main{
  	//Loop continuously in order to perform teleoperated tasks.
