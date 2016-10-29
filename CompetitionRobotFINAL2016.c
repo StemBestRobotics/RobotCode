@@ -18,8 +18,16 @@
  Controls final competition robot, which has a corn gathering arm, a seed gathering and distributing funnel with a gate, and a corn holder that has a gate to let the corn out
  in addition to being capable of driving in arcade control and in tank control, based on user input.
  */
- //Declare and initiallize global variables.
+ //Declare and initialize global variables.
  bool switched = false;
+ //speedControl stores the value that controls the speed.
+ int speedControl = 1;
+ //This function controls the speed of the wheels, so the drivers will be able to change the speed of the robot based on te situation
+ void gearShift(){
+	 int buttonUp = vexRT(btn8U);
+	 int buttonDown = vexRT(btn8D);
+	 
+ }
  //Function that controls the corn gathering arm
  void armMotorControl(){
  	//Declare and Initialize c2 as Vex Controller channel 1 or 2 based on drivers control style need
