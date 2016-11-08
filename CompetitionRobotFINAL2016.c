@@ -193,6 +193,22 @@ otherwise the motor does not move
  		motor[funnelServo] = -175;
  	}
  }
+
+ //Function that controls the door on the seed funnel
+ void unknownServoControl(){
+ 	//Declare and initialize btn4 as a button on the vex controller. This may be changed based on driver requests.
+ 	int btn4 = vexRT(Btn6U);
+ 	//Declare and initialize btn5 as a button on the vex controller. This may be changed based on driver requests.
+ 	int btn5 = vexRT(Btn6D);
+ 	if(btn4 == 1){
+ 		//It will turn the funnel servo to 90 degrees.
+ 		motor[funnelServo] = 175;
+ 	}
+ 	if(btn5 == 1){
+ 		//It will turn the funnel servo to 0 degrees.
+ 		motor[funnelServo] = -175;
+ 	}
+ }
  //Main body of program
  task main{
  	//Loop continuously in order to perform teleoperated tasks.
@@ -203,5 +219,6 @@ otherwise the motor does not move
  		funnelServoControl();
 		controlSwitch();
 		gearShift();
+		unknownServoControl ();
  	}
  }
