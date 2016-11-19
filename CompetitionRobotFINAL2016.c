@@ -166,8 +166,8 @@ otherwise the motor does not move
  */
  void doorMotorControl(){
  	//Declare and initialize btn1 as a button on the vex controller, which may be changed based on driver requests.
- 	int btn1 = vexRT(Btn5U);
- 	int btn2 = vexRT(Btn5D);
+ 	int btn1 = vexRT(Btn6U);
+ 	int btn2 = vexRT(Btn6D);
  	if(btn1 == 1){
  		//This opens the corn door
  		motor[doorMotor] = 175;
@@ -187,7 +187,7 @@ otherwise the motor does not move
  //Function that controls the door on the seed funnel
  void funnelServoControl(){
    //Declare and initialize btn as a button on the vex controller. This may be changed based on driver requests.
- 	int btn = vexRT(Btn8U);
+ 	int btn = vexRT(Btn5D);
  	if (cornOneCheck == false && btn == 1) {
  		cornOne = !cornOne;
  		cornOneCheck = true;
@@ -205,7 +205,7 @@ otherwise the motor does not move
   //Function that controls the door on the seed funnel
  void funnelServoControlTwo(){
    //Declare and initialize btn as a button on the vex controller. This may be changed based on driver requests.
- 	int btn = vexRT(Btn8R);
+ 	int btn = vexRT(Btn5U);
  	if (cornTwoCheck == false && btn == 1) {
  		cornTwo = !cornTwo;
  		cornTwoCheck = true;
@@ -223,7 +223,7 @@ otherwise the motor does not move
  //Function that controls the door on the seed funnel
  void waterServoControl(){
    //Declare and initialize btn as a button on the vex controller. This may be changed based on driver requests.
- 	int btn = vexRT(Btn6U);
+ 	int btn = vexRT(Btn8U);
  	if (waterCheck == false && btn == 1) {
  		water = !water;
  		waterCheck = true;
@@ -239,6 +239,10 @@ otherwise the motor does not move
  }
  //Main body of program
  task main{
+   motor(funnelServo)=-175;
+   motor(funnelServoTwo)=-175;
+   motor(waterServo)=-175;
+   wait1Msec(500);
  	//Loop continuously in order to perform teleoperated tasks.
  	while(1==1){
  		drive();
