@@ -1,0 +1,13 @@
+ void potentiometer(){
+    int js = vexRT(Ch1)    
+    if(1==1){
+        motor = js;n
+    }        
+    if (js<-50||50<js){
+        motor = 0;
+    }
+ 	 untilPotentiometerGreaterThan(2000, in2);
+        motor = 175;   
+    untilPotentiometerLessThan(100, in2)
+        motor=0
+ }
