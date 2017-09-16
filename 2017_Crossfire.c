@@ -9,25 +9,35 @@ drivers needs as to increase ease of use with the drivers and therfor increase t
 
 the arcade movement takes one joystick inputs and sets the motor values, if it is within
 a small range of tolerence it sets it definitively(To account for design inperfection in the controller
-and for slight drifing due to imperfect joystick position) These "Tolerence ranges" are a range of 10 and
+and for slight drifing due to imperfect joystick position) These "Tolerence ranges" are a range of 90 and
 they are around the contolls of turning movement and directional movement
 
 The tank movement takes two joystick inputs and uses their "Hights" as inputs to the movement motors
 
+There is also a gearshift that must half the speed of the motor when pressed. It would work as a toggle that could also
+shift back, this is in place to allow drivers to have fast movement and fine tuned persision
 
+the different movement options(2 joystick tank controll and 1 joystick arcade controll) must both be switched with
+a toggle, akin to the gearshifts toggle, that can freely switch between the controll systems, making it easier on the drivers
+thus makes the aplication of out scoring stratigies signifigantly easier
 
 */
 float speedScaler = 1;//This value is multiplied by the speed as to allow for fine controll over the robot if set less than
-bool arcadeControlMethod = false;//This is switched based on driver preference,
-int tolerance = 30;
+bool arcadeControlMethod = false;
 /*
 some drivers like tank based controll(Each joysticks outputs to the motor)
 and arcade(Generic controll method one joystick controlls all movement),
 this can be easily switched here as such to accomadate the drivers needs
 */
+int tolerance = 30;
+/*
+A small range of tolerence it sets to allow for definitively outputs(To account for design inperfection in the controller
+and for slight drifing due to imperfect joystick position) These "Tolerence ranges" are set here and
+they are around the contolls of turning movement and directional movement(where drifting occurs frequently)
+*/
 void arcadeMovement(){	//Function for joystick based input controll
 	if( abs( vexRT[Ch1] ) < tolerance && abs ( vexRT[Ch2] ) < tolerance){//If the joystick is in a small range of the center in both directions, when the robot should be stopped
-		motor[motorLeft] = 0;
+		motor[motorLeft] = 0;//Dead zone, if it near the center it should be fully off, however because of slight imperfections it is still slighly moving, wasting battery
 		motor[motorRight] = 0;
 	}else if( abs( vexRT[Ch1] ) < tolerance ){//If the joystick is in a small range of the center verticly IE moving forward/backward
 		motor[motorLeft] = vexRT[Ch2]* speedScaler;//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
