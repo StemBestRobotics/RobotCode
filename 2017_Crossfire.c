@@ -14,6 +14,8 @@ they are around the contolls of turning movement and directional movement
 
 The tank movement takes two joystick inputs and uses their "Hights" as inputs to the movement motors
 
+
+
 */
 float speedScaler = 1;//This value is multiplied by the speed as to allow for fine controll over the robot if set less than
 bool arcadeControlMethod = false;//This is switched based on driver preference,
@@ -68,10 +70,10 @@ task main()//Runs at start of program
 		if((vexRT[Btn7U]==false)&&(arcadeCheck==true)){
 			arcadeCheck = false;
 		}
-		
+
 		if((vexRT[Btn8U]==1)&&(speedCheck==false)){//This is a switch that allows the code to switch the gear on a button
 			if(speedScaler==1){
-				speedScaler=0.5;//This sets the speedcontroller to half 
+				speedScaler=0.5;//This sets the speedcontroller to half
 			}else{
 				speedScaler=1;//This sets the speedcontroller to full
 			}
