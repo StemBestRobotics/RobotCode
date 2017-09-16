@@ -96,12 +96,12 @@ task main()
 		if((vexRT[Btn8U]==false)&&(arcadeCheck==true)){
 			arcadeCheck = false;
 		}
-		
+
 		if((vexRT[Btn7U]==1)&&(speedCheck==false)){//This is a switch that allows the code to switch on a button
 			if(speedScaler==1){
-				speedScaler=0.5
+				speedScaler=0.5;
 			}else{
-				speedScaler=1
+				speedScaler=1;
 			}
 			speedCheck = true;		}
 		if((vexRT[Btn7U]==false)&&(speedCheck==true)){
