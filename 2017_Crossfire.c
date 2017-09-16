@@ -58,6 +58,33 @@ void tankMovement(){//2 Joystick tank controlls
 	//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
 	}
 }
+void shootingMotorFunction() {
+		//Rotates motor 127 degrees clockwise if button 8L is pressed
+		if (vexRT[Btn8L]){
+			motor(shootingMotor) = 127;	
+		}
+		
+		//Rotates motor 127 degrees counterclockwise if button 8R is pressed
+		else if (vexRT[Btn8R]){
+			motor(shootingMotor) = -127;
+		}
+		
+		//Stops motor rotation if buttons 8R or 8L aren't being pressed
+		else {
+				motor(shootingMotor) = 0;
+		}
+}
+void shootingServoFunction() {
+	//Rotates servo 127 degrees clockwise if button 7L is pressed
+	if (vexRT[Btn7L]){
+		motor(shootingServo) = 127;
+	}
+		
+	//Rotates servo 127 degrees counterclockwise if button 7R is pressed
+	else if (vexRT[Btn7R]){
+		motor(shootingServo) = -127;
+	}
+}
 task main()//Runs at start of program
 {
 	bool speedCheck = false;
@@ -86,6 +113,9 @@ task main()//Runs at start of program
 			arcadeMovement();//Runs a test of arcade based movement(Changing the motors based on arcade controll mapping)
 		}else{
 			tankMovement();//Runs a test for tank based controll mapping(Changing the motors based on the 2 joysticks "Hight"(I am using hight to represent their upwards value)
+		}
+		if (vexRT[Btn8L]){
+			motor(shootingMotor) = 127;	
 		}
 	}
 }
