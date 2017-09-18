@@ -119,6 +119,6 @@ task main()//Runs at start of program
 			tankMovement();//Runs a test for tank based controll mapping(Changing the motors based on the 2 joysticks "Hight"(I am using hight to represent their upwards value)
 		}
 		scoopMotorFunction();
-		scoopServoFuntion();
+		scoopServoFunction();
 	}
 }
