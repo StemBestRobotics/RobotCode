@@ -16,6 +16,9 @@ they are around the contolls of turning movement and directional movement
 
 The tank movement takes two joystick inputs and uses their "Hights" as inputs to the movement motors
 
+There must also be a servo which moves to max on a button, and moves to start on a different button to operate the shooting arm
+In combonation there must be a motor that turns one way when a button is pressed, turn the other way when a different button is pressed, and turn of If
+neither are pressed
 
 
 */
