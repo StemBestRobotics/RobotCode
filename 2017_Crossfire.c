@@ -23,6 +23,9 @@ the different movement options(2 joystick tank controll and 1 joystick arcade co
 a toggle, akin to the gearshifts toggle, that can freely switch between the controll systems, making it easier on the drivers
 thus makes the aplication of out scoring stratigies signifigantly easier
 
+There must also be a servo which moves to max on a button, and moves to start on a different button to operate the shooting arm
+In combonation there must be a motor that turns one way when a button is pressed, turn the other way when a different button is pressed, and turn of If
+neither are pressed
 */
 float speedScaler = 1;//This value is multiplied by the speed as to allow for fine controll over the robot if set less than
 bool arcadeControlMethod = false;
@@ -73,14 +76,14 @@ void tankMovement(){//2 Joystick tank controlls
 void shootingMotorFunction() {
 		//Rotates motor 127 degrees clockwise if button 8L is pressed
 		if (vexRT[Btn8L]){
-			motor(shootingMotor) = 127;	
+			motor(shootingMotor) = 127;
 		}
-		
+
 		//Rotates motor 127 degrees counterclockwise if button 8R is pressed
 		else if (vexRT[Btn8R]){
 			motor(shootingMotor) = -127;
 		}
-		
+
 		//Stops motor rotation if buttons 8R or 8L aren't being pressed
 		else {
 				motor(shootingMotor) = 0;
@@ -91,7 +94,7 @@ void shootingServoFunction() {
 	if (vexRT[Btn7L]){
 		motor(shootingServo) = 127;
 	}
-		
+
 	//Rotates servo 127 degrees counterclockwise if button 7R is pressed
 	else if (vexRT[Btn7R]){
 		motor(shootingServo) = -127;
@@ -127,7 +130,7 @@ task main()//Runs at start of program
 			tankMovement();//Runs a test for tank based controll mapping(Changing the motors based on the 2 joysticks "Hight"(I am using hight to represent their upwards value)
 		}
 		if (vexRT[Btn8L]){
-			motor(shootingMotor) = 127;	
+			motor(shootingMotor) = 127;
 		}
 	}
 }
