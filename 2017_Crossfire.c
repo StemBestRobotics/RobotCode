@@ -63,7 +63,7 @@ void arcadeMovement(){	//Function for joystick based input controll
 	}
 }
 void tankMovement(){//2 Joystick tank controlls
-	if(abs(vexRT(Ch2))<=10 && abs(vexRT(Ch3))<=10){
+	if(abs(vexRT(Ch2))<=tolerance && abs(vexRT(Ch3))<=tolerance){
 	motor[motorRight]=0;
 	motor[motorLeft]=0;
 	}else{
@@ -133,4 +133,5 @@ task main()//Runs at start of program
 			motor(shootingMotor) = 127;
 		}
 	}
+	shootingMotorFunction();
 }
