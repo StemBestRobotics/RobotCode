@@ -58,35 +58,6 @@ void tankMovement(){//2 Joystick tank controlls
 	//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
 	}
 }
-void scoopServoFunction(){
-	//Turns servo 45 degrees clockwise if button 6U is pressed
-	if(vexRT[Btn6U]) {
-		motor[scoopServo]=74;
-	}
-
-	//Turns servo 45 degrees counterclockwise if button 6D is pressed
-	else if (vexRT[Btn6D]) {
-		motor[scoopServo]=0;
-	}
-
-}
-void scoopMotorFunction(){
-
-	//Turns scoopMotor clockwise if button 5U is pressed
-	if (vexRT[Btn5U]) {
-		motor[scoopMotor] = 127;
-	}
-
-	//Turns scoopMotor counterclockwise if button 5D is pressed
-	else if (vexRT[Btn5D]) {
-		motor[scoopMotor] = -127;
-	}
-
-	//Stops scoopMotor if buttons 5U and 5D aren't being pressed
-	else {
-		motor[scoopMotor] = 0;
-	}
-}
 task main()//Runs at start of program
 {
 	bool speedCheck = false;
