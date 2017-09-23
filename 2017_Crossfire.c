@@ -9,7 +9,7 @@ drivers needs as to increase ease of use with the drivers and therefore increase
 ease of driver use.
 
 The arcade movement takes one joystick as input, or two channels, and sets the motor values if it is within
-a small range of tolerence it sets it definitively (To account for design inperfection in the controller
+a small range of tolerence it sets it definitively (To account for design inperfection in the controler
 and for slight drifing due to imperfect joystick position). These "Tolerence ranges" are a range of 30 and
 they are around the contols of turning movement and directional movement
 
@@ -24,7 +24,7 @@ some drivers like tank based control (Each joysticks outputs to the motor)
 and some like arcade (Generic control method where one joystick controls all movement),
 this can be easily switched here as such to accomadate the specific driver's needs
 */
-void arcadeMovement(){	//Function for joystick based input controll
+void arcadeDrive(){	//Function for arcade drive
 	//If the joystick is in a small range from the center in both directions, the robot should be stopped
 	if( abs( vexRT[Ch1] ) < tolerance && abs ( vexRT[Ch2] ) < tolerance){
 		motor[motorLeft] = 0;
@@ -70,9 +70,7 @@ void tankMovement(){
 	motor[motorRight] = vexRT[Ch2] * -1 * speedScaler;
 	}
 }
-void drive(){
-	//variables that operate toggle switches
-	bool speedCheck = false;
+void toggleArcade(){
 	bool arcadeCheck = false;
 	//Toggle switch. Btn7U is pressed, operating value inverts. Changes between arcade and tank drive.
 	if((vexRT[Btn7U]==1)&&(arcadeCheck==false)){
@@ -82,24 +80,33 @@ void drive(){
 		if((vexRT[Btn7U]==false)&&(arcadeCheck==true)){
 			arcadeCheck = false;
 		}
-		//Toggle switch. Btn8U is pressed, operating value inverts. Works as a gearshift, shifting between fast and slow.
-		if((vexRT[Btn8U]==1)&&(speedCheck==false)){
-			if(speedScaler==1){
-				speedScaler=0.5;
-			}else{
-				speedScaler=1;
-			}
-			speedCheck = !speedCheck;
-		}
-		if((vexRT[Btn8U]==false)&&(speedCheck==true)){
-			speedCheck = false;
-		}
-		//Tank if driver chooses tank, arcade if driver chooses that.
-		if(arcadeControlMethod==true){
-			arcadeMovement();
+}
+void toggleSpeed(){
+	bool speedCheck = false;
+	//Toggle switch. Btn8U is pressed, operating value inverts. Works as a gearshift, shifting between fast and slow.
+	if((vexRT[Btn8U]==1)&&(speedCheck==false)){
+		if(speedScaler==1){
+			speedScaler=0.5;
 		}else{
-			tankMovement();
+			speedScaler=1;
 		}
+		speedCheck = !speedCheck;
+	}
+	if((vexRT[Btn8U]==false)&&(speedCheck==true)){
+		speedCheck = false;
+	}
+}
+void drive(){
+	//Toggle switch. Btn7U is pressed, operating value inverts. Changes between arcade and tank drive.
+	toggleArcade();
+	//Toggle switch. Btn8U is pressed, operating value inverts. Works as a gearshift, shifting between fast and slow.
+	toggleSpeed();
+	//Tank if driver chooses tank, arcade if driver chooses that.
+	if(arcadeControlMethod==true){
+		arcadearcadeDrive();
+	}else{
+		tankMovement();
+	}
 }
 //Task main is the beginning of the program
 task main()
