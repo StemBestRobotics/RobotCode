@@ -59,19 +59,19 @@ void tankMovement(){//2 Joystick tank controls
 	}else{
 	motor[motorLeft] = vexRT[Ch3] * speedScaler;//Left Joystick up/down is the left motors power
 	//The speedScaler is to apply the speed control The speed control exists to allow the drivers to switch from rapid movement to fine control
-	motor[motorRight] = vexRT[Ch2] * -1 * speedScaler;//Right joystick up/down is the right motors power
+	motor[motorRight] = vexRT[Ch2] * -1 * speedScaler;//Right joystick up/down is the right mozgxtors power
 	//The speedScaler is to apply the speed control The speed control exists to allow the drivers to switch from rapid movement to fine control
 	}
 }
 void scoopServoFunction(){
 	//Turns servo 45 degrees clockwise if button 6U is pressed
 	if(vexRT[Btn6U]) {
-		motor[scoopServo]=74;
+		motor[scoopServo]=127;
 	}
 
 	//Turns servo 45 degrees counterclockwise if button 6D is pressed
 	else if (vexRT[Btn6D]) {
-		motor[scoopServo]=0;
+		motor[scoopServo]=-127;
 	}
 
 }
