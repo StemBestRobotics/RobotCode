@@ -13,13 +13,11 @@ The arcade movement takes one joystick as input, or two channels, and sets the m
 The tank movement takes two joystick inputs and uses their "Heights" as inputs to the movement motors
 
 */
-float speedScalar = 1;//This value is multiplied by the speed as to allow for fine control over the robot if set less than one.
 bool arcadeControlMethod = false;//This is switched based on driver preference, to provide advanced control
 int tolerance = 30;
 bool centrifugalOn = false;
 bool centreCheck = false;
 bool arcadeCheck = false;
-bool speedCheck = false;
 /*
 Some drivers like tank based control (Each joysticks outputs to the motor) and some like arcade (Generic control method where one joystick controls all movement), this can be easily switched here as such to accommodate the specific driver's needs
 */
@@ -30,12 +28,12 @@ void arcadeDrive(){	//Function for arcade drive
 		motor[motorRight] = 0;
 	//If the joystick is in a small vertical range, for moving forward/backward
 	}else if( abs( vexRT[Ch1] ) < tolerance ){
-		motor[motorLeft] = vexRT[Ch2]* speedScalar;
-		motor[motorRight] = vexRT[Ch2]*-1* speedScalar;
+		motor[motorLeft] = vexRT[Ch2];
+		motor[motorRight] = vexRT[Ch2]*-1;
 	//If the joystick is in a small horizontal range, the robot will turn left or right
 	}else if( abs( vexRT[Ch2] ) < tolerance ){
-		motor[motorLeft] = vexRT[Ch1]* speedScalar;
-		motor[motorRight] = vexRT[Ch1]* speedScalar;
+		motor[motorLeft] = vexRT[Ch1];
+		motor[motorRight] = vexRT[Ch1];
 	//If the joystick is forward, do a forward swing turn
 	}else if( vexRT[Ch2] > tolerance ){
 		//As the horizontal channel becomes more positive, the robot turns to the right.
@@ -43,8 +41,8 @@ void arcadeDrive(){	//Function for arcade drive
 		//Thinking of these averages as a graph, with the horizontal channel as the input,
 		//and motor output as the output, the left motor would become much higher positive number as the input becomes positive, and the right motor
 		//would become a much smaller positive number as the input becomes negative.
-		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScalar)/2;
-		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScalar)/-2;
+		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1]))/2;
+		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1]))/-2;
 	//If the joystick is negative, do a backward swing turn
 	}else if( vexRT[Ch2] < -tolerance ){
 		//As the horizontal channel becomes more positive, the robot turns to the left.
@@ -52,8 +50,8 @@ void arcadeDrive(){	//Function for arcade drive
 		//Thinking of these averages as a graph, with the horizontal channel as the input,
 		//and motor output as the output, the left motor would become much higher positive number as the input becomes negative, and the right motor
 		//would become a much smaller positive number as the input becomes positive.
-		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScalar)/2;
-		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScalar)/-2;
+		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1]))/2;
+		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1]))/-2;
 	}
 }
 //2 Joystick tank control
@@ -64,9 +62,9 @@ void tankMovement(){
 	motor[motorLeft]=0;
 	}else{
 	//Left Joystick up/down is the left motors power
-	motor[motorLeft] = vexRT[Ch3] * speedScalar;
+	motor[motorLeft] = vexRT[Ch3];
 	//Right joystick up/down is the right motors power
-	motor[motorRight] = vexRT[Ch2] * -1 * speedScalar;
+	motor[motorRight] = vexRT[Ch2] * -1;
 	}
 }
 void toggleArcade(){
@@ -79,25 +77,9 @@ void toggleArcade(){
 			arcadeCheck = false;
 		}
 }
-void toggleSpeed(){
-	//Toggle switch. Btn8U is pressed, operating value inverts. Works as a gearshift, shifting between fast and slow.
-	if((vexRT[Btn8U]==1)&&(speedCheck==false)){
-		if(speedScalar==1){
-			speedScalar=0.5;
-		}else{
-			speedScalar=1;
-		}
-		speedCheck = !speedCheck;
-	}
-	if((vexRT[Btn8U]==false)&&(speedCheck==true)){
-		speedCheck = false;
-	}
-}
 void drive(){
 	//Toggle switch. Btn7U is pressed, operating value inverts. Changes between arcade and tank drive.
 	toggleArcade();
-	//Toggle switch. Btn8U is pressed, operating value inverts. Works as a gearshift, shifting between fast and slow.
-	toggleSpeed();
 	//Tank if driver chooses tank, arcade if driver chooses that.
 	if(arcadeControlMethod==true){
 		arcadeDrive();
