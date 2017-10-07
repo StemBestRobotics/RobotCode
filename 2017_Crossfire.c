@@ -6,26 +6,19 @@
 
 /*
 Requirements:
-A basic arcade movement drive that can be switched to a tank control function that can accomidate our
-drivers needs as to increase ease of use with the drivers and therefore increase the score, through
-ease of driver use.
+A basic arcade movement drive that can be switched to a tank control function that can accommodate our drivers’ needs as to increase ease of use with the drivers and therefore increase the score, through ease of driver use.
 
-The arcade movement takes one joystick as input, or two channels, and sets the motor values if it is within
-a small range of tolerence it sets it definitively (To account for design inperfection in the controler
-and for slight drifing due to imperfect joystick position). These "Tolerence ranges" are a range of 30 and
-they are around the contols of turning movement and directional movement
+The arcade movement takes one joystick as input, or two channels, and sets the motor values if it is within a small range of tolerance it sets it definitively (To account for design imperfection in the controller and for slight drifting due to imperfect joystick position). These "Tolerance ranges" are a range of 30 and they are around the controls of turning movement and directional movement
 
 The tank movement takes two joystick inputs and uses their "Heights" as inputs to the movement motors
 
 */
-float speedScaler = 1;//This value is multiplied by the speed as to allow for fine control over the robot if set less than one.
+float speedScalar = 1;//This value is multiplied by the speed as to allow for fine control over the robot if set less than one.
 bool arcadeControlMethod = false;//This is switched based on driver preference, to provide advanced control
 int tolerance = 30;
 bool centrifugalOn = false;
 /*
-some drivers like tank based control (Each joysticks outputs to the motor)
-and some like arcade (Generic control method where one joystick controls all movement),
-this can be easily switched here as such to accomadate the specific driver's needs
+Some drivers like tank based control (Each joysticks outputs to the motor) and some like arcade (Generic control method where one joystick controls all movement), this can be easily switched here as such to accommodate the specific driver's needs
 */
 void arcadeDrive(){	//Function for arcade drive
 	//If the joystick is in a small range from the center in both directions, the robot should be stopped
@@ -34,12 +27,12 @@ void arcadeDrive(){	//Function for arcade drive
 		motor[motorRight] = 0;
 	//If the joystick is in a small vertical range, for moving forward/backward
 	}else if( abs( vexRT[Ch1] ) < tolerance ){
-		motor[motorLeft] = vexRT[Ch2]* speedScaler;
-		motor[motorRight] = vexRT[Ch2]*-1* speedScaler;
+		motor[motorLeft] = vexRT[Ch2]* speedScalar;
+		motor[motorRight] = vexRT[Ch2]*-1* speedScalar;
 	//If the joystick is in a small horizontal range, the robot will turn left or right
 	}else if( abs( vexRT[Ch2] ) < tolerance ){
-		motor[motorLeft] = vexRT[Ch1]* speedScaler;
-		motor[motorRight] = vexRT[Ch1]* speedScaler;
+		motor[motorLeft] = vexRT[Ch1]* speedScalar;
+		motor[motorRight] = vexRT[Ch1]* speedScalar;
 	//If the joystick is forward, do a forward swing turn
 	}else if( vexRT[Ch2] > tolerance ){
 		//As the horizontal channel becomes more positive, the robot turns to the right.
@@ -47,8 +40,8 @@ void arcadeDrive(){	//Function for arcade drive
 		//Thinking of these averages as a graph, with the horizontal channel as the input,
 		//and motor output as the output, the left motor would become much higher positive number as the input becomes positive, and the right motor
 		//would become a much smaller positive number as the input becomes negative.
-		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScaler)/2;
-		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScaler)/-2;
+		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScalar)/2;
+		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScalar)/-2;
 	//If the joystick is negative, do a backward swing turn
 	}else if( vexRT[Ch2] < -tolerance ){
 		//As the horizontal channel becomes more positive, the robot turns to the left.
@@ -56,21 +49,21 @@ void arcadeDrive(){	//Function for arcade drive
 		//Thinking of these averages as a graph, with the horizontal channel as the input,
 		//and motor output as the output, the left motor would become much higher positive number as the input becomes negative, and the right motor
 		//would become a much smaller positive number as the input becomes positive.
-		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScaler)/2;
-		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScaler)/-2;
+		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScalar)/2;
+		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScalar)/-2;
 	}
 }
 //2 Joystick tank control
 void tankMovement(){
-	//Deadzone to correct for faulty joysticks.
+	//Dead zone to correct for faulty joysticks.
 	if(abs(vexRT(Ch2))<=10 && abs(vexRT(Ch3))<=10){
 	motor[motorRight]=0;
 	motor[motorLeft]=0;
 	}else{
 	//Left Joystick up/down is the left motors power
-	motor[motorLeft] = vexRT[Ch3] * speedScaler;
+	motor[motorLeft] = vexRT[Ch3] * speedScalar;
 	//Right joystick up/down is the right motors power
-	motor[motorRight] = vexRT[Ch2] * -1 * speedScaler;
+	motor[motorRight] = vexRT[Ch2] * -1 * speedScalar;
 	}
 }
 void toggleArcade(){
@@ -88,10 +81,10 @@ void toggleSpeed(){
 	bool speedCheck = false;
 	//Toggle switch. Btn8U is pressed, operating value inverts. Works as a gearshift, shifting between fast and slow.
 	if((vexRT[Btn8U]==1)&&(speedCheck==false)){
-		if(speedScaler==1){
-			speedScaler=0.5;
+		if(speedScalar==1){
+			speedScalar=0.5;
 		}else{
-			speedScaler=1;
+			speedScalar=1;
 		}
 		speedCheck = !speedCheck;
 	}
@@ -148,7 +141,7 @@ void rescue(){
 //Task main is the beginning of the program
 task main()
 {
-	//Infinitie loop causes infinite execution
+	//Infinite loop causes infinite execution
 	while(1==1){
 		//function that controls driving
 		drive();
