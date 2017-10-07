@@ -99,7 +99,7 @@ void drive(){
 	toggleSpeed();
 	//Tank if driver chooses tank, arcade if driver chooses that.
 	if(arcadeControlMethod==true){
-		arcadearcadeDrive();
+		arcadeDrive();
 	}else{
 		tankMovement();
 	}
@@ -123,12 +123,12 @@ void shoot(){
 void rescue(){
 
 	//Turns scoopMotor clockwise if button 5U is pressed
-	if (vexRT[Btn5U]) {
+	if (vexRT[Btn6U]) {
 		motor[scoopMotor] = 127;
 	}
 
 	//Turns scoopMotor counterclockwise if button 5D is pressed
-	else if (vexRT[Btn5D]) {
+	else if (vexRT[Btn6D]) {
 		motor[scoopMotor] = -127;
 	}
 
