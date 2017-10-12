@@ -31,6 +31,10 @@ neither are pressed
 float speedScaler = 1;//This value is multiplied by the speed as to allow for fine controll over the robot if set less than
 bool arcadeControlMethod = false;
 bool centrificalOn = false;
+bool orderCheck = false;
+bool servoSwap = false;
+bool actServoCheck = false;
+bool actServoOn = false;
 /*
 some drivers like tank based controll(Each joysticks outputs to the motor)
 and arcade(Generic controll method one joystick controlls all movement),
@@ -96,19 +100,35 @@ void shootingServoFunction() {
 }
 
 void orderWater(){
-	if(time100[T1]%2==true){
-		motor(waterControlServo) = 127;
-		}else{
-		motor(waterControlServo) = -127;
+	if((vexRT[Btn7L]==true)&&(actServoCheck==false)){
+		actServoOn = !actServoOn;
+		actServoCheck=true;
+	}
+	if((vexRT[Btn7L]==false)&&(actServoCheck==true)){
+		actServoCHeck = false;
+	}
+	if(actServoOn==true){
+		if((time100[T1]%5==true)&&(orderCheck==false)){//This is a switch that allows the code to switch between arcade controll on a button
+			servoSwap=!servoSwap;
+			orderCheck = true;
+		}
+		if((time100[T1]%5==false)&&(orderCheck==true)){
+			orderCheck = false;
+		}
+		if(servoSwap == true){
+			motor(waterControlServo) = 127;
+			}else if(servoSwap == false){
+			motor(waterControlServo) = -127;
+		}
 	}
 }
 
 task main()//Runs at start of program
 {
 	clearTimer(T1);
+	bool centeCheck = false;
 	bool speedCheck = false;
 	bool arcadeCheck = false;
-	bool centeCheck = false;
 	while(1==1){//Forever, this is the code that keeps the bot running throughout the compitition
 		if((vexRT[Btn7U]==1)&&(arcadeCheck==false)){//This is a switch that allows the code to switch between arcade controll on a button
 			arcadeControlMethod=!arcadeControlMethod;
