@@ -9,22 +9,31 @@
 
 /*
 Requirements:
-A basic arcade movement drive that can be switched to a tank control function that can accommodate our driversâ?? needs as to increase ease of use with the drivers and therefore increase the score, through ease of driver use.
+Robot must drive. Performed by drive function.
+The driving function must provide both tank and arcade control. It does.
+The robot must rescue Manny. Provided by the rescue function.
+The robot must not move the rescue device past a certain limit. It meets this requirement.
+The robot must shoot water. Provided by the shoot function.
+The robot must sort the water into an ordered pattern. The robot does.
 
-The arcade movement takes one joystick as input, or two channels, and sets the motor values if it is within a small range of tolerance it sets it definitively (To account for design imperfection in the controller and for slight drifting due to imperfect joystick position). These "Tolerance ranges" are a range of 30 and they are around the controls of turning movement and directional movement
+UI:
+6U: lift manny rescue device
+6D: put down manny rescue device
+5U: Toggle shooter.
 
-The tank movement takes two joystick inputs and uses their "Heights" as inputs to the movement motors
+7L: toggle ball organizer.
+7U: toggle arcade drive or tank drive.
 
 */
-bool arcadeControlMethod = false;//This is switched based on driver preference, to provide advanced control
-int tolerance = 30;
-bool centrifugalOn = false;
-bool centreCheck = false;
-bool arcadeCheck = false;
-bool orderCheck = false;
-bool servoSwap = false;
-bool actServoCheck = false;
-bool actServoOn = false;
+bool arcadeControlMethod = false; //This is switched based on driver preference, to provide advanced control
+int tolerance = 30; //deadzone to correct for faulty joysticks
+bool centrifugalOn = false; //toggle boolean for shooter
+bool centreCheck = false; //check boolean for shooter
+bool arcadeCheck = false; //check boolean for drive toggle
+bool orderCheck = false; //check boolean for water organizer
+bool servoSwap = false; //toggle boolean for water organizer
+bool actServoCheck = false; //check boolean for water automated movement
+bool actServoOn = false; //toggle boolean for water automated movement
 /*
 Some drivers like tank based control (Each joysticks outputs to the motor) and some like arcade (Generic control method where one joystick controls all movement), this can be easily switched here as such to accommodate the specific driver's needs
 */
@@ -33,16 +42,16 @@ void arcadeDrive(){	//Function for arcade drive
 	if( abs( vexRT[Ch1] ) < tolerance && abs ( vexRT[Ch2] ) < tolerance){
 		motor[motorLeft] = 0;
 		motor[motorRight] = 0;
-	//If the joystick is in a small vertical range, for moving forward/backward
-	}else if( abs( vexRT[Ch1] ) < tolerance ){
+		//If the joystick is in a small vertical range, for moving forward/backward
+		}else if( abs( vexRT[Ch1] ) < tolerance ){
 		motor[motorLeft] = vexRT[Ch2];
 		motor[motorRight] = vexRT[Ch2]*-1;
-	//If the joystick is in a small horizontal range, the robot will turn left or right
-	}else if( abs( vexRT[Ch2] ) < tolerance ){
+		//If the joystick is in a small horizontal range, the robot will turn left or right
+		}else if( abs( vexRT[Ch2] ) < tolerance ){
 		motor[motorLeft] = vexRT[Ch1];
 		motor[motorRight] = vexRT[Ch1];
-	//If the joystick is forward, do a forward swing turn
-	}else if( vexRT[Ch2] > tolerance ){
+		//If the joystick is forward, do a forward swing turn
+		}else if( vexRT[Ch2] > tolerance ){
 		//As the horizontal channel becomes more positive, the robot turns to the right.
 		//As the horizontal channel becomes more negative, the robot turns to the left.
 		//Thinking of these averages as a graph, with the horizontal channel as the input,
@@ -50,8 +59,8 @@ void arcadeDrive(){	//Function for arcade drive
 		//would become a much smaller positive number as the input becomes negative.
 		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1]))/2;
 		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1]))/-2;
-	//If the joystick is negative, do a backward swing turn
-	}else if( vexRT[Ch2] < -tolerance ){
+		//If the joystick is negative, do a backward swing turn
+		}else if( vexRT[Ch2] < -tolerance ){
 		//As the horizontal channel becomes more positive, the robot turns to the left.
 		//As the horizontal channel becomes more negative, the robot turns to the right.
 		//Thinking of these averages as a graph, with the horizontal channel as the input,
@@ -65,37 +74,37 @@ void arcadeDrive(){	//Function for arcade drive
 void tankMovement(){
 	//Dead zone to correct for faulty joysticks.
 	if(abs(vexRT(Ch2))<=10 && abs(vexRT(Ch3))<=10){
-	motor[motorRight]=0;
-	motor[motorLeft]=0;
-	}else{
-	//Left Joystick up/down is the left motors power
-	motor[motorLeft] = vexRT[Ch3];
-	//Right joystick up/down is the right motors power
-	motor[motorRight] = vexRT[Ch2] * -1;
+		motor[motorRight]=0;
+		motor[motorLeft]=0;
+		}else{
+		//Left Joystick up/down is the left motors power
+		motor[motorLeft] = vexRT[Ch3];
+		//Right joystick up/down is the right motors power
+		motor[motorRight] = vexRT[Ch2] * -1;
 	}
 }
 void toggleArcade(){
 	//Toggle switch. Btn7U is pressed, operating value inverts. Changes between arcade and tank drive.
 	if((vexRT[Btn7U]==1)&&(arcadeCheck==false)){
-			arcadeControlMethod=!arcadeControlMethod;
-			arcadeCheck = true;
-		}
-		if((vexRT[Btn7U]==false)&&(arcadeCheck==true)){
-			arcadeCheck = false;
-		}
+		arcadeControlMethod=!arcadeControlMethod;
+		arcadeCheck = true;
+	}
+	if((vexRT[Btn7U]==false)&&(arcadeCheck==true)){
+		arcadeCheck = false;
+	}
 }
 void drive(){
 	//Toggle switch. Btn7U is pressed, operating value inverts. Changes between arcade and tank drive.
 	toggleArcade();
-	//Tank if driver chooses tank, arcade if driver chooses that.
 	if(arcadeControlMethod==true){
 		arcadeDrive();
-	}else{
+		}else{
 		tankMovement();
 	}
 }
 
 void orderWater(){
+	//toggle actServoCheck to enable or disable water organization.
 	if((vexRT[Btn7L]==true)&&(actServoCheck==false)){
 		actServoOn = !actServoOn;
 		actServoCheck=true;
@@ -103,8 +112,9 @@ void orderWater(){
 	if((vexRT[Btn7L]==false)&&(actServoCheck==true)){
 		actServoCheck = false;
 	}
+	//move servo every 500ms.
 	if(actServoOn==true){
-		if((time100[T1]%5==true)&&(orderCheck==false)){//This is a switch that allows the code to switch between arcade controll on a button
+		if((time100[T1]%5==true)&&(orderCheck==false)){
 			servoSwap=!servoSwap;
 			orderCheck = true;
 		}
@@ -119,8 +129,11 @@ void orderWater(){
 	}
 }
 
+//shoot water
 void shoot(){
+	//break up patterns in balls
 	orderWater();
+	//toggle launcher
 	if((vexRT[Btn5U]==1)&&(centreCheck==false)){//This is a switch to change if the shooting motor is on, so the drivers don't have to hold down the button
 		centrifugalOn= (!centrifugalOn);
 		centreCheck = true;
@@ -130,7 +143,7 @@ void shoot(){
 	}
 	if(centrifugalOn==true){
 		motor[shootingMotor] = 127;
-	}else{
+		}else{
 		motor[shootingMotor] = 0;
 	}
 }
@@ -158,7 +171,6 @@ task main()
 {
 	//Infinite loop causes infinite execution
 	while(1==1){
-		//function that controls driving
 		drive();
 		shoot();
 		rescue();
