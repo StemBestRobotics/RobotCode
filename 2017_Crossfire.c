@@ -156,7 +156,7 @@ void rescue(){
 	}
 
 	//Turns scoopMotor counterclockwise if button 5D is pressed
-	else if (vexRT[Btn6D&&(SensorValue(limitDown)==false)]) {
+	else if (vexRT[Btn6D]&&(SensorValue(limitDown)==false)) {
 		motor[scoopMotor] = -127;
 	}
 
