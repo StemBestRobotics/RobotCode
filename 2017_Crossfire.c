@@ -1,3 +1,5 @@
+#pragma config(Sensor, dgtl11, limitUp,        sensorTouch)
+#pragma config(Sensor, dgtl12, limitDown,      sensorTouch)
 #pragma config(Motor,  port2,           motorLeft,     tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           shootingMotor, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           scoopMotor,    tmotorVex393_MC29, openLoop)
@@ -99,7 +101,7 @@ void orderWater(){
 		actServoCheck=true;
 	}
 	if((vexRT[Btn7L]==false)&&(actServoCheck==true)){
-		actServoCHeck = false;
+		actServoCheck = false;
 	}
 	if(actServoOn==true){
 		if((time100[T1]%5==true)&&(orderCheck==false)){//This is a switch that allows the code to switch between arcade controll on a button
@@ -136,12 +138,12 @@ void shoot(){
 void rescue(){
 
 	//Turns scoopMotor clockwise if button 5U is pressed
-	if (vexRT[Btn6U]) {
+	if (vexRT[Btn6U]&&(SensorValue(limitUp)==false)) {
 		motor[scoopMotor] = 127;
 	}
 
 	//Turns scoopMotor counterclockwise if button 5D is pressed
-	else if (vexRT[Btn6D]) {
+	else if (vexRT[Btn6D&&(SensorValue(limitDown)==false)]) {
 		motor[scoopMotor] = -127;
 	}
 
