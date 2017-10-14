@@ -112,7 +112,7 @@ void orderWater(){
 			orderCheck = false;
 		}
 		if(servoSwap == true){
-			motor(waterControlServo) = 127;
+			motor(waterControlServo) = 0;
 			}else if(servoSwap == false){
 			motor(waterControlServo) = -127;
 		}
