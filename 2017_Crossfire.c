@@ -1,3 +1,5 @@
+#pragma config(Sensor, dgtl11, limitUp,        sensorTouch)
+#pragma config(Sensor, dgtl12, limitDown,      sensorTouch)
 #pragma config(Motor,  port2,           motorLeft,     tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port9,           motorRight,    tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           scoopServo,         tmotorServoStandard, openLoop)
@@ -78,12 +80,12 @@ void scoopServoFunction(){
 void scoopMotorFunction(){
 
 	//Turns scoopMotor clockwise if button 5U is pressed
-	if (vexRT[Btn5U]) {
+	if (vexRT[Btn5U]&&(SensorValue(limitUp)==false)) {
 		motor[scoopMotor] = 127;
 	}
 
 	//Turns scoopMotor counterclockwise if button 5D is pressed
-	else if (vexRT[Btn5D]) {
+	else if (vexRT[Btn5D]&&(SensorValue(limitDown)==false)) {
 		motor[scoopMotor] = -127;
 	}
 
