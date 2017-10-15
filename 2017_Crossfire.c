@@ -151,12 +151,12 @@ void shoot(){
 void rescue(){
 
 	//Turns scoopMotor clockwise if button 5U is pressed
-	if (vexRT[Btn6U]&&(SensorValue(limitUp)==false)) {
+	if (vexRT[Btn6U]&&(SensorValue(limitUp)==true)) {
 		motor[scoopMotor] = 127;
 	}
 
 	//Turns scoopMotor counterclockwise if button 5D is pressed
-	else if (vexRT[Btn6D]&&(SensorValue(limitDown)==false)) {
+	else if (vexRT[Btn6D]&&(SensorValue(limitDown)==true)) {
 		motor[scoopMotor] = -127;
 	}
 
