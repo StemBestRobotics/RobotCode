@@ -84,12 +84,12 @@ void shootingMotorFunction() {
 }
 void shootingServoFunction() {
 	//Rotates servo 127 degrees clockwise if button 7L is pressed
-	if (vexRT[Btn7L]){
+	if (vexRT[Btn6L]){
 		motor(shootingServo) = 127;
 	}
 
 	//Rotates servo 127 degrees counterclockwise if button 7R is pressed
-	else if (vexRT[Btn7R]){
+	else if (vexRT[Btn6L]){
 		motor(shootingServo) = -127;
 	}
 }
@@ -131,8 +131,13 @@ task main()//Runs at start of program
 		}else{
 			tankMovement();//Runs a test for tank based controll mapping(Changing the motors based on the 2 joysticks "Hight"(I am using hight to represent their upwards value)
 		}
+		shootingServoFunction();
 		if(centrificalOn==true){
-			motor[shootingMotor] = 127;
+			if(vexRT[Btn5D] == true){
+				motor[shootingMotor] = 127;
+			}else{
+				motor[shootingMotor] = -127;
+			}
 		}else{
 			motor[shootingMotor] = 0;
 		}
