@@ -45,18 +45,14 @@ void arcadeMovement(){	//Function for joystick based input controll
 	if( abs( vexRT[Ch1] ) < tolerance && abs ( vexRT[Ch2] ) < tolerance){//If the joystick is in a small range of the center in both directions, when the robot should be stopped
 		motor[motorLeft] = 0;//Dead zone, if it near the center it should be fully off, however because of slight imperfections it is still slighly moving, wasting battery
 		motor[motorRight] = 0;
-	}else if( abs( vexRT[Ch1] ) < tolerance ){//If the joystick is in a small range of the center verticly IE moving forward/backward
 		motor[motorLeft] = vexRT[Ch2]* speedScaler;//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
 		motor[motorRight] = vexRT[Ch2]*-1* speedScaler;//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
-	}else if( abs( vexRT[Ch2] ) < tolerance ){//If the joystick is in a small range of the center horisontaly IE turning Left/right
 		motor[motorLeft] = vexRT[Ch1]* speedScaler;//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
 		motor[motorRight] = vexRT[Ch1]* speedScaler;//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
-	}else if( vexRT[Ch2] > tolerance ){//If the joystick is forward, doing a forward swing turn
 		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScaler)/2;//If it moves closer to the top the subtraction is less relevent
 		//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
 		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScaler)/-2;//The subtraction is flipped because the motors should be switched
 		//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
-	}else if( vexRT[Ch2] < -tolerance ){//If the joystick is backward, doing a backward swing turn
 		motor[motorLeft] = ((vexRT[Ch2]+vexRT[Ch1])* speedScaler)/2;//Same as above, but because it is in the bottom thresehold, it should be inverted, so the subtraction is flipped
 		//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
 		motor[motorRight] = ((vexRT[Ch2]-vexRT[Ch1])* speedScaler)/-2;
@@ -65,22 +61,9 @@ void arcadeMovement(){	//Function for joystick based input controll
 }
 void tankMovement(){//2 Joystick tank controlls
 	if(abs(vexRT(Ch2))<=tolerance && abs(vexRT(Ch3))<=tolerance){
-	motor[motorRight]=0;
-	motor[motorLeft]=0;
-	}else{
-	motor[motorLeft] = vexRT[Ch3] * speedScaler;//Left Joystick up/down is the left motors power
-	//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
-	motor[motorRight] = vexRT[Ch2] * -1 * speedScaler;//Right joystick up/down is the right motors power
-	//The speedScaler is to apply the speed controll The speed controll exists to allow the drivers to switch from rapid movement to fine controll
 	}
 }
 void shootingMotorFunction() {
-		//Rotates motor 127 degrees clockwise if button 8L is pressed
-/*		if (vexRT[Btn5D]){
-			motor[shootingMotor] = -127;
-		}else{
-			motor[shootingMotor] = 127;
-		}*/
 }
 void shootingServoFunction() {
 	//Rotates servo 127 degrees clockwise if button 7L is pressed
@@ -97,7 +80,6 @@ task main()//Runs at start of program
 {
 	bool speedCheck = false;
 	bool arcadeCheck = false;
-	bool centeCheck = false;
 	while(1==1){//Forever, this is the code that keeps the bot running throughout the compitition
 		if((vexRT[Btn7U]==1)&&(arcadeCheck==false)){//This is a switch that allows the code to switch between arcade controll on a button
 			arcadeControlMethod=!arcadeControlMethod;
@@ -118,7 +100,6 @@ task main()//Runs at start of program
 		if((vexRT[Btn8U]==1)&&(speedCheck==false)){//This is a switch that allows the code to switch the gear on a button
 			if(speedScaler==1){
 				speedScaler=0.5;//This sets the speedcontroller to half
-			}else{
 				speedScaler=1;//This sets the speedcontroller to full
 			}
 			speedCheck = !speedCheck;
@@ -128,7 +109,6 @@ task main()//Runs at start of program
 		}
 		if(arcadeControlMethod==true){//Tests if the driver wants arcade or tank based controlls, each rewrites the inputs
 			arcadeMovement();//Runs a test of arcade based movement(Changing the motors based on arcade controll mapping)
-		}else{
 			tankMovement();//Runs a test for tank based controll mapping(Changing the motors based on the 2 joysticks "Hight"(I am using hight to represent their upwards value)
 		}
 		shootingServoFunction();
