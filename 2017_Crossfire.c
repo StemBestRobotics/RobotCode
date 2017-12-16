@@ -150,7 +150,7 @@ void aimServo(){
 	if((vexRT[Btn7R]==false)&&(aimServoCheck==true)){
 		aimServoCheck = false;
 	}
-	if(aimServoCheck){//If the manny magnet is activated
+	if(aimServoOn){//If the manny magnet is activated
 		motor[aimingServo]=90;//set the servo's to 90 degrees
 	}else{
 		motor[aimingServo]=0;//set the servo's to 0 degrees
