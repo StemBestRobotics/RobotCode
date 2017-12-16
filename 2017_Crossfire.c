@@ -166,11 +166,11 @@ void orgWater(){
 		waterOrgCheck = false;
 	}
 	if(waterOrgOn==true){
-		if((time100[T1]%3==true)&&(orderCheck==false)){
+		if((time100[T1]%2==true)&&(orderCheck==false)){
 			orgSwap=!orgSwap;
 			orgCheck = true;
 		}
-		if((time100[T1]%3==false)&&(orgCheck==true)){
+		if((time100[T1]%2==false)&&(orgCheck==true)){
 			orgCheck = false;
 		}
 		if(orgSwap == true){
@@ -214,9 +214,9 @@ void mannyMagnet(){
 		mannyMagnetCheck = false;
 	}
 	if(mannyMagnetOn){//If the manny magnet is activated
-		motor[mannyMagServoOne]=90;
+		motor[mannyMagServoOne]=127;
 	}else{
-		motor[mannyMagServoOne]=0;
+		motor[mannyMagServoOne]=-127;
 	}
 }
 
